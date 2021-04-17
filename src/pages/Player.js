@@ -1,6 +1,17 @@
 import {Lightning, Router} from "@lightningjs/sdk";
+import PlayerStorage from "../storages/player";
 
 export default class Player extends Lightning.Component{
+
+    _setup() {
+        PlayerStorage.setActions('id', this.notifyOnIdChange.bind(this));
+    }
+    
+
+    notifyOnIdChange(_key, _oldValue, newValue) {
+        this.widgets.notification.notify(`Id value changed to: ${newValue}`);
+    }
+
     static _template(){
         return {
             rect: true, w: 1920, h: 1080,
@@ -45,8 +56,8 @@ export default class Player extends Lightning.Component{
      * this.widgets
      * @private
      */
-    _handleEnter(){
-        this.widgets.notification.notify(`Widget notification for videoId: ${this._videoId}`);
+    _handleEnter() {
+        PlayerStorage.set('id', Math.floor(Math.random()*300000)+800000);
     }
 
     _onUrlParams(args){

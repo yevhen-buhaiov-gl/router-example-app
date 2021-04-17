@@ -1,6 +1,15 @@
 import {Lightning, Router} from "@lightningjs/sdk";
-
+import PlayerStorage from "../storages/player";
 export default class Home extends Lightning.Component{
+
+    _setup() {
+        PlayerStorage.setActions('id', this.setTestId.bind(this));
+    }
+
+    setTestId(_key, _oldValue, text) {
+        this.tag('TestId').patch({ text: { text }});
+    }
+
     static _template(){
         return {
             rect: true, w: 1920, h: 1080,
@@ -9,6 +18,11 @@ export default class Home extends Lightning.Component{
                 x: 960, y: 540, mount: 0.5,
                 text:{
                     text:'Home'
+                }
+            },
+            TestId: {
+                text: {
+                    text: PlayerStorage.get('id')
                 }
             },
             Details: {

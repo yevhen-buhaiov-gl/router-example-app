@@ -23,7 +23,6 @@
       "gcOnUnload": true,
       "lazyCreate": true,
       "lazyDestroy": true,
-      "reuseInstance": false,
       "numberNavigation": false,
       "logRoute": true
     }
